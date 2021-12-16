@@ -1,0 +1,44 @@
+{% extends 'layouts/master.html' %}
+{% block title %}View{% endblock %}
+{% block body %}
+<h1>Movie</h1>
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Movie</th>
+        <th scope="col">Image</th>
+        <th scope="col">Description</th>
+        <td></td>
+    </tr>
+    </thead>
+    <tbody>
+
+    {% for movie in contacts %}
+    <tr>
+        <td>{{ movie.id }}</td>
+        <td>
+            <div style="margin: 0 auto; width: 130px">
+                <img src="{{ movie.image }}" alt="me" style="width: 80px; height:80px; "/>
+            </div>
+        </td>
+        <td>{{ movie.title }}</td>
+        <td>{{ movie.description }}</td>
+
+        <td class="text-right">
+            <div class="row">
+                <form action="{{ url_for('insert_movie') }}" method="post" class="pull-right">
+                    <input type="hidden" name="id" value="{{ movie.id }}">
+                    <input type="hidden" name="name" value="{{ movie.title }}">
+                    <input type="hidden" name="image" value="{{ movie.image }}">
+                    <input type="hidden" name="description" value="{{ movie.description }}">
+                    <input type="submit" class="btn btn-danger" data-toggle="confirmation" {#
+                           data-title="¿Estas seguro?" #} value="Add">
+                </form>
+            </div>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
